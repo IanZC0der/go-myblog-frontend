@@ -5,14 +5,16 @@
         </div>
         <div class="loginForm">
             <a-form :model="loginForm" :style="{ width: '600px' }" @submit="handleSubmit">
-                <a-form-item field="username" hide-label=true>
+                <a-form-item hide-label="true" field="username"
+                    :rules="[{ required: true, message: 'username is required' }]">
                     <a-input v-model="loginForm.username" placeholder="please enter your username...">
                         <template #prefix>
                             <icon-user />
                         </template>
                     </a-input>
                 </a-form-item>
-                <a-form-item field="password" hide-label=true>
+                <a-form-item hide-label="true" field="password"
+                    :rules="[{ required: true, message: 'password is required' }, { minLength: 8, message: 'must be greater than 8 characters' }]">
                     <a-input-password v-model="loginForm.password" placeholder="please enter your password...">
                         <template #prefix>
                             <icon-lock />
