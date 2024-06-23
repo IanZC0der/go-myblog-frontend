@@ -16,6 +16,10 @@
 </template>
 
 <script setup>
+
+import { blogStore } from '../stores/localStorage'
+
+console.log(blogStore)
 </script>
 
 <style lang="css" scoped>
@@ -25,7 +29,7 @@
     align-items: center;
     background-color: #f8f9fa;
     padding: 10px 40px;
-    margin: 2px 2px;
+    /* margin: 2px 2px; */
 }
 
 .navbar a {
@@ -42,7 +46,7 @@
 
 .navbar .logo {
     font-weight: bold;
-    color: #007bff;
+    color: rgb(var(--arcoblue-7));
 }
 
 .navbar .menu {
@@ -61,5 +65,10 @@
 
 .navbar .button:hover {
     background-color: #0056b3;
+}
+
+.btns {
+    padding: 0 0;
+    margin: 0 0;
 }
 </style>

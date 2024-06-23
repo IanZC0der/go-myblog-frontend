@@ -35,7 +35,8 @@
 import { LOGIN } from '../../api/token'
 import { ref } from 'vue'
 import { Message } from '@arco-design/web-vue'
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
+import { blogStore } from '../../stores/localStorage'
 
 const rter = useRouter()
 const loginForm = ref({
@@ -59,6 +60,8 @@ const handleSubmit = async (data) => {
 
         // we need to route to the blogs page upon successful login
         // 
+        blogStore.value.is_login = true
+        blogStore.value.token = res.data
         Message.success('login successful')
         rter.push({ name: 'backendBlog' })
 

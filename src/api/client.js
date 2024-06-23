@@ -15,6 +15,8 @@ var instance = axios.create({
 instance.interceptors.response.use(
   (res) => {
     console.log(res)
+    // should return the response
+    return res
   },
   (error) => {
     let msg = error.message
@@ -37,9 +39,9 @@ instance.interceptors.response.use(
         default:
           break
       }
+      return Promise.reject(error.response.data)
     }
     Message.error(`${msg}`)
-    return Promise.reject(error.response.data)
   }
 )
 
