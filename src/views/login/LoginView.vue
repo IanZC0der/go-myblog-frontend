@@ -48,7 +48,9 @@ const handleSubmit = async (data) => {
     // console.log(data)
     // console.log(ev)
     // validation failed
+    console.log(data)
     if (data.errors !== undefined) {
+        Message.error("validation failed")
         return
     }
     try {
@@ -57,6 +59,7 @@ const handleSubmit = async (data) => {
 
         // we need to route to the blogs page upon successful login
         // 
+        Message.success('login successful')
         rter.push({ name: 'backendBlog' })
 
     } catch (error) {
