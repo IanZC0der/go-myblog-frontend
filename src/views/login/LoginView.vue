@@ -35,21 +35,37 @@
 import { LOGIN } from '../../api/token'
 import { ref } from 'vue'
 import { Message } from '@arco-design/web-vue'
+import { useRouter } from 'vue-router';
+
+const rter = useRouter()
 const loginForm = ref({
     username: '',
     password: '',
 })
 
 // submit handler
-const handleSubmit = async (data, ev) => {
-    console.log(data)
-    console.log(ev)
+const handleSubmit = async (data) => {
+    // console.log(data)
+    // console.log(ev)
+    // validation failed
+    if (data.errors !== undefined) {
+        return
+    }
     try {
         const res = await LOGIN(loginForm.value)
         console.log(res)
+
+        // we need to route to the blogs page upon successful login
+        // 
+        rter.push({ name: 'backendBlog' })
+
     } catch (error) {
-        // console.log(error)
-        Message.error(`login failed: ${error}`)
+        // console.log(erro       // incorrect username or password
+        let msg = error.message
+        if (error.response.data && error.response.data.message) {
+            msg = error.response.data.message
+        }
+        Message.error(`login failed: ${msg}`)
     }
 }
 </script>
