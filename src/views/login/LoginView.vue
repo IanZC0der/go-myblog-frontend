@@ -63,12 +63,9 @@ const handleSubmit = async (data) => {
         rter.push({ name: 'backendBlog' })
 
     } catch (error) {
-        // console.log(erro       // incorrect username or password
-        let msg = error.message
-        if (error.response.data && error.response.data.message) {
-            msg = error.response.data.message
-        }
-        Message.error(`login failed: ${msg}`)
+        // the response will be processed by the interceptor in client.js
+        console.log(error)
+        // Message.error('login failed')
     }
 }
 </script>
