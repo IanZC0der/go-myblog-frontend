@@ -5,14 +5,14 @@
         </div>
         <div class="loginForm">
             <a-form :model="loginForm" :style="{ width: '600px' }" @submit="handleSubmit">
-                <a-form-item field="username" hide-label="true">
-                    <a-input v-model="loginForm.name" placeholder="please enter your username...">
+                <a-form-item field="username" hide-label=true>
+                    <a-input v-model="loginForm.username" placeholder="please enter your username...">
                         <template #prefix>
                             <icon-user />
                         </template>
                     </a-input>
                 </a-form-item>
-                <a-form-item field="password" hide-label="true">
+                <a-form-item field="password" hide-label=true>
                     <a-input-password v-model="loginForm.password" placeholder="please enter your password...">
                         <template #prefix>
                             <icon-lock />
@@ -30,16 +30,25 @@
 </template>
 
 <script setup>
+import { LOGIN } from '../../api/token'
 import { ref } from 'vue'
+import { Message } from '@arco-design/web-vue'
 const loginForm = ref({
     username: '',
     password: '',
 })
 
 // submit handler
-const handleSubmit = (data, ev) => {
+const handleSubmit = async (data, ev) => {
     console.log(data)
     console.log(ev)
+    try {
+        const res = await LOGIN(loginForm.value)
+        console.log(res)
+    } catch (error) {
+        // console.log(error)
+        Message.error(`login failed: ${error}`)
+    }
 }
 </script>
 
