@@ -8,8 +8,10 @@
         </div>
         <!-- <button class="button">Text</button> -->
         <div class="btns">
-            <a-button type="text">login</a-button>
-            <a-button type="text"><span style="margin-right: 5px">logout</span> <icon-export /></a-button>
+            <a-button type="text" @click="toLogin" v-if="!blogStore.is_login">login</a-button>
+            <a-button type="text" @click="handleLogout" v-if="blogStore.is_login"><span
+                    style="margin-right: 5px">logout</span>
+                <icon-export /></a-button>
         </div>
 
     </div>
@@ -18,8 +20,49 @@
 <script setup>
 
 import { blogStore } from '../stores/localStorage'
+import { useRouter } from 'vue-router'
+import { Message } from '@arco-design/web-vue'
+import { LOGOUT } from '../api/token'
 
 console.log(blogStore)
+
+const rter = useRouter()
+
+
+
+const toLogin = () => {
+    rter.push({ name: 'login' })
+
+}
+
+
+
+
+const handleLogout = async (data) => {
+    // console.log(data)
+    // console.log(ev)
+    // validation failed
+    console.log(data)
+    if (data.errors !== undefined) {
+        Message.error("validation failed")
+        return
+    }
+    try {
+        const res = await LOGOUT(blogStore.value.token)
+        console.log(res)
+
+        // we need to route to the blogs page upon successful login
+        // 
+        blogStore.value.is_login = false
+        blogStore.value.token = ''
+        Message.success('logout successful')
+
+    } catch (error) {
+        // the response will be processed by the interceptor in client.js
+        console.log(error)
+        // Message.error('login failed')
+    }
+}
 </script>
 
 <style lang="css" scoped>
