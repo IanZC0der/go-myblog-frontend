@@ -8,8 +8,9 @@
         </div> -->
         <!-- <button class="button">Text</button> -->
         <div class="btns">
-            <a-button type="text" @click="toLogin" v-if="!blogStore.is_login">login</a-button>
-            <a-button type="text" @click="handleLogout" v-if="blogStore.is_login"><span
+            <a-button type="text" v-if="blogStore.is_login">testuser</a-button>
+            <a-button type="outline" @click="toLogin" v-if="!blogStore.is_login">login</a-button>
+            <a-button type="outline" @click="handleLogout" v-if="blogStore.is_login"><span
                     style="margin-right: 5px">logout</span>
                 <icon-export /></a-button>
         </div>

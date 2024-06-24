@@ -53,7 +53,33 @@ const handleSubMenuClick = (key) => {
     height: 100%;
     background-color: white;
     /* padding: 0 2em; */
+    /* box-shadow: 3px 2px 5px -2px rgba(0, 0, 0, 0.5); */
+    transition: box-shadow 0.3s ease;
 
 
+}
+
+.sideBarStyles:hover {
+    box-shadow: 3px 2px 5px -2px var(--color-neutral-6);
+}
+
+
+
+.content {
+
+    padding: 10px 1rem;
+    width: 100%;
+    /* border-left: 1px solid var(--color-neutral-3); */
+    /* Set left border color and width */
+    /* box-shadow: -3px 0 5px -2px rgba(0, 0, 0, 0.5); */
+    /* Add shadow to the left */
+    /* transition: box-shadow 0.5s ease; */
+    /* margin-left: 6px; */
+}
+
+.content:hover {
+    box-shadow: -3px 2px 5px -2px var(--color-neutral-6);
+
+    /* border-left: 0.5px solid var(--color-neutral-6); */
 }
 </style>
