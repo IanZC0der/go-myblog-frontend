@@ -1,11 +1,11 @@
 <template>
     <div class="navbar">
         <div class="logo">My Blog</div>
-        <div class="menu">
+        <!-- <div class="menu">
             <a href="#">Home</a>
             <a href="#">Solution</a>
             <a href="#">Cloud Service</a>
-        </div>
+        </div> -->
         <!-- <button class="button">Text</button> -->
         <div class="btns">
             <a-button type="text" @click="toLogin" v-if="!blogStore.is_login">login</a-button>
@@ -71,7 +71,9 @@ const handleLogout = async (data) => {
     justify-content: space-between;
     align-items: center;
     background-color: #f8f9fa;
-    padding: 10px 40px;
+    padding: 1em 3.5em;
+    height: 3rem;
+    /* border: #ffffff 1em solid; */
     /* margin: 2px 2px; */
 }
 

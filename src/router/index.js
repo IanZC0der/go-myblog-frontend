@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/login/LoginView.vue'),
+      component: () => import('../views/login/LoginView.vue')
     },
     {
       path: '/frontend',
@@ -17,7 +17,7 @@ const router = createRouter({
         {
           path: 'blog',
           name: 'frontendBlog',
-          component: () => import('../views/frontend/blog/ListView.vue'),
+          component: () => import('../views/frontend/blog/ListView.vue')
         }
       ]
     },
@@ -29,10 +29,15 @@ const router = createRouter({
         {
           path: 'blog',
           name: 'backendBlog',
-          component: () => import('../views/backend/blog/ListView.vue'),
+          component: () => import('../views/backend/blog/ListView.vue')
+        },
+        {
+          path: 'blogedit',
+          name: 'backendBlogEdit',
+          component: () => import('../views/backend/blog/EditView.vue')
         }
       ]
-    },
+    }
   ]
 })
 
