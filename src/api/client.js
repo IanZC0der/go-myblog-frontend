@@ -16,7 +16,7 @@ instance.interceptors.response.use(
   (res) => {
     console.log(res)
     // should return the response
-    return res
+    return res.data
   },
   (error) => {
     let msg = error.message

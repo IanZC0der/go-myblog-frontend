@@ -61,7 +61,7 @@ const handleSubmit = async (data) => {
         // we need to route to the blogs page upon successful login
         // 
         blogStore.value.is_login = true
-        blogStore.value.token = res.data
+        blogStore.value.token = res
         Message.success('login successful')
         rter.push({ name: 'backendBlog' })
 
