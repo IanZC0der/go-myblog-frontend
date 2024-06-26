@@ -19,3 +19,7 @@
 .fourth-color { 
 	background: #fdc57b; 
 }
+
+:deep(.arco-breadcrumb-item) {
+    padding: 0;
+}

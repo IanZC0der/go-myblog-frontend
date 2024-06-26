@@ -17,7 +17,9 @@
 
                 </a-menu>
             </div>
-            <div class="content"><router-view></router-view></div>
+            <div class="content" style="overflow: scroll; width: 100%; height: calc(100vh - 3rem);">
+                <router-view></router-view>
+            </div>
 
         </div>
     </a-layout>
@@ -64,9 +66,9 @@ const handleSubMenuClick = (key) => {
 
 }
 
-.sideBarStyles:hover {
-    box-shadow: 3px 2px 5px -2px var(--color-neutral-6);
-}
+/* .sideBarStyles:hover {
+    box-shadow: 3px -1px 5px -2px var(--color-neutral-6);
+} */
 
 
 
@@ -82,9 +84,9 @@ const handleSubMenuClick = (key) => {
     /* margin-left: 6px; */
 }
 
-.content:hover {
-    box-shadow: -3px 2px 5px -2px var(--color-neutral-6);
+/* .content:hover { */
+/* box-shadow: -3px 2px 5px -2px var(--color-neutral-6); */
 
-    /* border-left: 0.5px solid var(--color-neutral-6); */
-}
+/* border-left: 0.5px solid var(--color-neutral-6); */
+/* } */
 </style>

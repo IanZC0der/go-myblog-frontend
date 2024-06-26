@@ -11,7 +11,7 @@
         </a-breadcrumb>
         <div class="subHeader">
             <div>
-                <a-button type="primary" size='mini'>
+                <a-button type="primary" size='mini' @click="handleCreateBtnClick">
                     <template #icon>
                         <icon-plus />
                     </template>
@@ -43,6 +43,24 @@
                                 {{ dayjs.unix(record.created_at).format('YYYY-MM-DD HH:mm') }}
                             </template>
                         </a-table-column>
+
+                        <a-table-column title="Action">
+                            <template #cell="{ record }">
+                                <a-space>
+                                    <a-button type="primary" size="mini">
+                                        <icon-edit />
+                                    </a-button>
+                                    <a-popover title="Publish">
+                                        <a-button status="success" size="mini" :disabled="record.status === 1">
+                                            <icon-upload />
+                                        </a-button>
+                                    </a-popover>
+                                    <a-button status="danger" size="mini">
+                                        <icon-delete />
+                                    </a-button>
+                                </a-space>
+                            </template>
+                        </a-table-column>
                     </template>
                 </a-table>
             </a-config-provider>
@@ -66,6 +84,7 @@
 import { onBeforeMount, reactive, ref } from 'vue'
 import { GET_ALL_BLOGS } from '../../../api/blog'
 import dayjs from 'dayjs'
+import { blogStore } from '@/stores/localStorage'
 
 
 import enUS from '@arco-design/web-vue/es/locale/lang/en-us'
@@ -73,6 +92,11 @@ import { useRouter } from 'vue-router';
 
 const rter = useRouter()
 console.log(rter.currentRoute.value.name)
+
+const handleCreateBtnClick = () => {
+    blogStore.value.menu.selectedKeys = ['backendBlogEdit']
+    rter.push({ name: 'backendBlogEdit' })
+}
 
 const searchTitles = (ev) => {
     if (ev instanceof KeyboardEvent) {
