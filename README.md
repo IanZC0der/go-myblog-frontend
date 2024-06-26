@@ -9,3 +9,11 @@
 ## Blog Edit Page
 
 ![Blog Edit Page](./resources/imgs/blog_edit.png)
+
+## Blog Detail Page
+
+![Blog Detail](./resources/imgs/blog_detail.png)
+
+## First Page
+
+![first Page](./resources/imgs/front_page.png)
