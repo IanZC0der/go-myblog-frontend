@@ -14,11 +14,17 @@ const router = createRouter({
       path: '/frontend',
       name: 'frontend',
       component: () => import('../views/frontend/LayoutView.vue'),
+      redirect: { name: 'frontendBlog' },
       children: [
         {
           path: 'blog',
           name: 'frontendBlog',
           component: () => import('../views/frontend/blog/ListView.vue')
+        },
+        {
+          path: 'blogdetail',
+          name: 'frontendBlogDetail',
+          component: () => import('../views/frontend/blog/DetailView.vue')
         }
       ]
     },

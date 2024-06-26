@@ -40,11 +40,19 @@
                     <a-textarea v-model="blog.abstract" placeholder="please enter the abstract..." allow-clear>
                     </a-textarea>
                 </a-form-item>
-                <a-form-item label="Tags" field="tags" extra="Put the tags here">
+                <a-form-item label="Tags" field="tags" extra="Put the new tags here">
+
                     <a-input-tag v-model="blog.tValues" placeholder="enter tags here..." :format-tag="handleFormatTag"
                         :unique-value="true" />
 
                 </a-form-item>
+                <!-- <a-form-item label="Old tags">
+                    <a-tag v-for="tag in blog.tags" :key="tag" color="blue" :closable="true"
+                        @close="handleRemove(tag)">{{
+                            blog.tags[tag] }}</a-tag>
+                </a-form-item> -->
+
+
                 <a-form-item label="Content" field="content">
                     <MdEditor v-model="blog.content" language="en-US" @onSave="handleSaveMD" />
                 </a-form-item>
@@ -66,6 +74,7 @@ import { Message } from '@arco-design/web-vue';
 import { CREATE_NEW_BLOG, UPDATE_BLOG, GET_ONE_BLOG } from '../../../api/blog'
 
 import { blogStore } from '../../../stores/localStorage'
+
 
 config(
     {
@@ -108,8 +117,12 @@ const handleSaveMD = async () => {
             return obj;
         }, {})
     }
-    if (blog.value.id === -1) {
+    if (blog.value.tValues.length > 0) {
         convertTagsToObject()
+    } else {
+        if (blog.value.tags.length > 0) {
+            blog.value.tValues = Object.values(blog.value.tags)
+        }
     }
 
 
@@ -119,6 +132,7 @@ const handleSaveMD = async () => {
     if (blog.value.id !== -1) {
         // use update api
         try {
+            console.log(blog.value.tValues)
             const res = await UPDATE_BLOG(blog.value)
             console.log(res)
             Message.success('blog updated successfully')
@@ -143,6 +157,11 @@ const handleSaveMD = async () => {
 
 }
 
+// const handleRemove = (tag) => {
+//     delete blog.value.tags[tag]
+//     blog.value.tValues = Object.values(blog.value.tags)
+// }
+
 // const handlePressEnter = async (ev) => {
 //     // console.log(ev)
 //     // ev.preventDefault()
@@ -163,6 +182,7 @@ onBeforeMount(async () => {
             const res = await GET_ONE_BLOG(blogId)
             console.log(res)
             blog.value = res
+            blog.value.tValues = Object.values(blog.value.tags)
             blogStore.value.menu.selectedKeys = ['backendBlogEdit']
             rter.push({ name: 'backendBlogEdit' })
         } catch (error) {
