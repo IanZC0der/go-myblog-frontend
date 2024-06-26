@@ -49,8 +49,6 @@ router.beforeEach((to, from, next) => {
 
   if (to.fullPath.startsWith('/backend') && !isLogedin) {
     next({ name: 'login' })
-  } else if (to.fullPath.startsWith('/login') && isLogedin) {
-    next({ name: 'frontend' })
   } else {
     next()
   }

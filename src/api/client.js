@@ -32,6 +32,7 @@ instance.interceptors.response.use(
           // token expired, redirect to login page
           Message.error('token expired')
           window.location.assign('/login')
+          console.log(error)
           break
         case 6000:
           Message.error('permission denied')
