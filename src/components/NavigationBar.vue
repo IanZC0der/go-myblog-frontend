@@ -8,8 +8,17 @@
         </div> -->
         <!-- <button class="button">Text</button> -->
         <div class="btns">
-            <a-button type="text" v-if="blogStore.is_login" :style="{ color: 'var(--color-neutral-10)' }">{{
-                blogStore.token.username }}</a-button>
+
+            <a-popover position="left">
+                <a-button type="text" v-if="blogStore.is_login" :style="{ color: 'var(--color-neutral-10)' }"
+                    @click="handleUsernameClick">{{
+                        blogStore.token.username }}</a-button>
+                <template #content>
+                    <span>click to switch between blogs management/front page</span>
+                </template>
+
+            </a-popover>
+
             <a-button type="outline" @click="toLogin" v-if="!blogStore.is_login">login</a-button>
             <a-button type="outline" @click="handleLogout" v-if="blogStore.is_login"><span
                     style="margin-right: 5px">logout</span>
@@ -35,6 +44,14 @@ const rter = useRouter()
 const toLogin = () => {
     rter.push({ name: 'login' })
 
+}
+
+const handleUsernameClick = () => {
+    if (rter.currentRoute.value.name.startsWith('backend')) {
+        rter.push({ name: 'frontend' })
+    } else {
+        rter.push({ name: 'backend' })
+    }
 }
 
 

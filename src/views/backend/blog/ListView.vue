@@ -5,8 +5,9 @@
                 <icon-right />
             </template>
             <a-breadcrumb-item>Manage Blogs</a-breadcrumb-item>
-            <a-breadcrumb-item>Blogs List</a-breadcrumb-item>
-            <a-breadcrumb-item>Edit</a-breadcrumb-item>
+            <a-breadcrumb-item v-if="rter.currentRoute.value.fullPath === '/backend/blog'">Blogs
+                List</a-breadcrumb-item>
+            <a-breadcrumb-item v-if="rter.currentRoute.value.fullPath === '/backend/blogedit'">Edit</a-breadcrumb-item>
         </a-breadcrumb>
         <div class="subHeader">
             <div>
@@ -65,6 +66,10 @@ import dayjs from 'dayjs'
 
 
 import enUS from '@arco-design/web-vue/es/locale/lang/en-us'
+import { useRouter } from 'vue-router';
+
+const rter = useRouter()
+console.log(rter.currentRoute.value.name)
 
 //get the blogs before the ui is rendered
 

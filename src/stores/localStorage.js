@@ -4,7 +4,11 @@ export const blogStore = useStorage(
   'my-blog-store',
   {
     is_login: false,
-    token: {}
+    token: {},
+    menu: {
+      selectedKeys: [],
+      selectedOpenKeys: []
+    }
   },
   localStorage,
   { mergeDefaults: true } // <--

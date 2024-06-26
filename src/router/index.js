@@ -1,3 +1,4 @@
+import { blogStore } from '@/stores/localStorage'
 import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
 
@@ -25,6 +26,7 @@ const router = createRouter({
       path: '/backend',
       name: 'backend',
       component: () => import('../views/backend/LayoutView.vue'),
+      redirect: { name: 'backendBlog' },
       children: [
         {
           path: 'blog',
@@ -39,6 +41,19 @@ const router = createRouter({
       ]
     }
   ]
+})
+
+// global navigation guard
+router.beforeEach((to, from, next) => {
+  const isLogedin = blogStore.value.is_login
+
+  if (to.fullPath.startsWith('/backend') && !isLogedin) {
+    next({ name: 'login' })
+  } else if (to.fullPath.startsWith('/login') && isLogedin) {
+    next({ name: 'frontend' })
+  } else {
+    next()
+  }
 })
 
 export default router
