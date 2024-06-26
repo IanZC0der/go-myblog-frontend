@@ -75,6 +75,7 @@ const handleLogout = async (data) => {
         blogStore.value.is_login = false
         blogStore.value.token = ''
         Message.success('logout successful')
+        rter.push({ name: 'login' })
 
     } catch (error) {
         // the response will be processed by the interceptor in client.js

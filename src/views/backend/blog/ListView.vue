@@ -19,30 +19,33 @@
                 </a-button>
             </div>
             <div>
-                <a-input-search :style="{ width: '320px' }" size='mini' placeholder="Seach Blogs..." search-button />
+                <a-input-search :style="{ width: '320px' }" size='mini' placeholder="Search Blogs..." search-button
+                    @keydown.enter="searchTitles" @search="searchTitles" allow-clear />
             </div>
         </div>
         <div class="blogsList">
-            <a-table :data="blogs.items" :pagination="false" size='small' :bordered=false :loading="ifLoading">
-                <template #columns>
+            <a-config-provider :locale="locale">
+                <a-table :data="blogs.items" :pagination="false" size='small' :bordered=false :loading="ifLoading">
+                    <template #columns>
 
-                    <a-table-column title="ID" data-index="id"></a-table-column>
-                    <a-table-column title="Title" data-index="title"></a-table-column>
-                    <a-table-column title="Author" data-index="author"></a-table-column>
-                    <a-table-column title="Status" data-index="status">
-                        <template #cell="{ record }">
-                            <a-tag :color="record.status === 1 ? 'green' : 'red'">
-                                {{ record.status === 1 ? 'Published' : 'Draft' }}
-                            </a-tag>
-                        </template>
-                    </a-table-column>
-                    <a-table-column title="Created Time" data-index="created_at">
-                        <template #cell="{ record }">
-                            {{ dayjs.unix(record.created_at).format('YYYY-MM-DD HH:mm') }}
-                        </template>
-                    </a-table-column>
-                </template>
-            </a-table>
+                        <a-table-column title="ID" data-index="id"></a-table-column>
+                        <a-table-column title="Title" data-index="title"></a-table-column>
+                        <a-table-column title="Author" data-index="author"></a-table-column>
+                        <a-table-column title="Status" data-index="status">
+                            <template #cell="{ record }">
+                                <a-tag :color="record.status === 1 ? 'green' : 'red'">
+                                    {{ record.status === 1 ? 'Published' : 'Draft' }}
+                                </a-tag>
+                            </template>
+                        </a-table-column>
+                        <a-table-column title="Created Time" data-index="created_at">
+                            <template #cell="{ record }">
+                                {{ dayjs.unix(record.created_at).format('YYYY-MM-DD HH:mm') }}
+                            </template>
+                        </a-table-column>
+                    </template>
+                </a-table>
+            </a-config-provider>
             <a-config-provider :locale="locale">
                 <div class="paginationBar">
                     <a-pagination :total="blogs.total" show-total show-jumper show-page-size size='mini'
@@ -71,6 +74,19 @@ import { useRouter } from 'vue-router';
 const rter = useRouter()
 console.log(rter.currentRoute.value.name)
 
+const searchTitles = (ev) => {
+    if (ev instanceof KeyboardEvent) {
+        paginationParams.keywords = ev.target.value.replace(/\s+/g, '').toLowerCase()
+    } else {
+        paginationParams.keywords = ev.replace(/\s+/g, '').toLowerCase()
+    }
+    getBlogs()
+
+
+    // console.log(value)
+}
+
+
 //get the blogs before the ui is rendered
 
 
@@ -80,7 +96,8 @@ const ifLoading = ref(false)
 const blogs = ref({ items: [], total: 0 })
 const paginationParams = reactive({
     page_size: 10,
-    page_number: 1
+    page_number: 1,
+    keywords: ''
 })
 const getBlogs = async () => {
     ifLoading.value = true
