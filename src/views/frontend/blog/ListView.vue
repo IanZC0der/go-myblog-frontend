@@ -4,10 +4,15 @@
             <template #item="{ item }">
                 <a-list-item class="list-demo-item" action-layout="vertical">
                     <template #actions>
-                        <span><icon-user />Author: {{ item.author }}</span>
-                        <span><icon-calendar />Created at: {{ dayjs.unix(item.created_at).format('YYYY-MM-DD HH:mm')
+                        <span
+                            @click="rter.push({ name: 'frontendBlogDetail', query: { id: item.id } })"><icon-user />Author:
+                            {{ item.author }}</span>
+                        <span
+                            @click="rter.push({ name: 'frontendBlogDetail', query: { id: item.id } })"><icon-calendar />Created
+                            at: {{ dayjs.unix(item.created_at).format('YYYY-MM-DD HH:mm')
                             }}</span>
-                        <span><icon-message />Comment</span>
+                        <span
+                            @click="rter.push({ name: 'frontendBlogDetail', query: { id: item.id } })"><icon-message />Comment</span>
                     </template>
                     <template #extra>
 
@@ -24,8 +29,8 @@
     </div>
     <a-config-provider :locale="locale">
         <div class="paginationBar">
-            <a-pagination :total="blogs.total" show-total show-jumper show-page-size size='mini'
-                :page-size-options="[2, 5, 10]" @page-size-change="onPageSizeChanged" @change="onPageNumberChanged" />
+            <a-pagination :total="blogs.total" show-total show-jumper show-page-size size='mini' :default-page-size="5"
+                :page-size-options="[2, 5]" @page-size-change="onPageSizeChanged" @change="onPageNumberChanged" />
 
         </div>
 
@@ -52,7 +57,9 @@ const locale = enUS
 const paginationParams = reactive({
     page_size: 5,
     page_number: 1,
-    keywords: ''
+    keywords: '',
+    author: '',
+    status: 'published',
 })
 const getBlogs = async () => {
     try {

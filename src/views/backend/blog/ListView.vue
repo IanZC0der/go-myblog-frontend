@@ -52,7 +52,8 @@
                                         <icon-edit />
                                     </a-button>
                                     <a-popover title="Publish">
-                                        <a-button status="success" size="mini" :disabled="record.status === 1">
+                                        <a-button status="success" size="mini" :disabled="record.status === 1"
+                                            @click="handlePublish(record.id)">
                                             <icon-upload />
                                         </a-button>
                                     </a-popover>
@@ -87,7 +88,7 @@
 <script setup>
 
 import { onBeforeMount, reactive, ref } from 'vue'
-import { GET_ALL_BLOGS, DELETE_BLOG } from '../../../api/blog'
+import { GET_ALL_BLOGS, DELETE_BLOG, PUBLISH_BLOG } from '../../../api/blog'
 import dayjs from 'dayjs'
 import { blogStore } from '@/stores/localStorage'
 
@@ -116,6 +117,25 @@ const searchTitles = (ev) => {
     // console.log(value)
 }
 
+const handlePublish = async (id) => {
+    const update_data = {
+        id: id,
+        update_info: {
+            status: 1
+        }
+    }
+    try {
+        const res = await PUBLISH_BLOG(update_data)
+        console.log(res)
+        getBlogs()
+        Message.success('blog published successfully')
+    } catch (error) {
+        console.log(error)
+        Message.error('blog publish failed, try again later')
+    }
+}
+
+
 
 //get the blogs before the ui is rendered
 
@@ -128,7 +148,8 @@ const blogs = ref({ items: [], total: 0 })
 const paginationParams = reactive({
     page_size: 10,
     page_number: 1,
-    keywords: ''
+    keywords: '',
+    author: blogStore.value.token.username,
 })
 const getBlogs = async () => {
     ifLoading.value = true

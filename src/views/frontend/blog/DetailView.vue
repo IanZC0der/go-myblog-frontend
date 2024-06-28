@@ -16,13 +16,14 @@
         <div class="abstract">
             <p>"{{ blog.abstract }}"</p>
         </div>
-        <!-- <div class="content">
+        <!-- <div class="content"> -->
+        <MdPreview :editorId="id" v-model="blog.content" language='en-US' class="content" />
 
-        </div> -->
+        <!-- </div> -->
 
         <!-- </div> -->
         <!-- <template> -->
-        <MdPreview :editorId="id" v-model="blog.content" language='en-US' />
+        <CommentArea />
     </div>
     <!-- </template> -->
 </template>
@@ -32,6 +33,7 @@
 import { useRouter } from 'vue-router'
 import { GET_ONE_BLOG } from '../../../api/blog'
 import { onBeforeMount, ref } from 'vue'
+import CommentArea from '@/components/CommentArea.vue'
 
 import { Message } from '@arco-design/web-vue'
 import dayjs from 'dayjs'
@@ -75,11 +77,12 @@ onBeforeMount(async () => {
     flex-direction: column;
     align-items: center;
     margin: 20px;
-    padding: 20px;
+    padding: 1em 5em;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 2px 2px 12px #aaa;
     height: 100%;
+
 }
 
 .title {
@@ -110,5 +113,7 @@ onBeforeMount(async () => {
 .content {
     font-size: 16px;
     width: 100%;
+    overflow: auto;
+    height: 400px;
 }
 </style>

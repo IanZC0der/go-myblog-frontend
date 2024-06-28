@@ -19,7 +19,8 @@
                     </a-button>
                 </a-affix>
                 <a-affix :offsetTop="50">
-                    <a-button status="success" size="mini" type="primary">
+                    <a-button status="success" size="mini" type="primary" @click="handlePublish(blog.id)"
+                        :disabled="blog.status === 1">
                         <icon-upload />
                         Publish
                     </a-button>
@@ -71,7 +72,7 @@ import { onBeforeMount, ref } from 'vue'
 import { MdEditor, config } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import { Message } from '@arco-design/web-vue';
-import { CREATE_NEW_BLOG, UPDATE_BLOG, GET_ONE_BLOG } from '../../../api/blog'
+import { CREATE_NEW_BLOG, UPDATE_BLOG, GET_ONE_BLOG, PUBLISH_BLOG } from '../../../api/blog'
 
 import { blogStore } from '../../../stores/localStorage'
 
@@ -156,6 +157,25 @@ const handleSaveMD = async () => {
 
 
 }
+
+const handlePublish = async (id) => {
+    const update_data = {
+        id: id,
+        update_info: {
+            status: 1
+        }
+    }
+    try {
+        await handleSaveMD()
+        const res = await PUBLISH_BLOG(update_data)
+        console.log(res)
+        Message.success('blog published successfully')
+    } catch (error) {
+        console.log(error)
+        Message.error('blog publish failed, try again later')
+    }
+}
+
 
 // const handleRemove = (tag) => {
 //     delete blog.value.tags[tag]
