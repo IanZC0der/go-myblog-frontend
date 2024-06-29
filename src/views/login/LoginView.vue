@@ -63,7 +63,7 @@ const handleSubmit = async (data) => {
         blogStore.value.is_login = true
         blogStore.value.token = res
         Message.success('login successful')
-        rter.push({ name: 'backendBlog' })
+        rter.push({ name: 'frontend' })
 
     } catch (error) {
         // the response will be processed by the interceptor in client.js

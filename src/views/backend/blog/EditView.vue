@@ -99,7 +99,18 @@ const blog = ref({
     tValues: [],
     tags: {},
     author: blogStore.value.token.username,
+    status: 0,
 })
+
+const updateBlogFromResponse = (res) => {
+    const fieldsToUpdate = Object.keys(blog.value);
+
+    fieldsToUpdate.forEach(field => {
+        if (Object.prototype.hasOwnProperty.call(res, field)) {
+            blog.value[field] = res[field];
+        }
+    })
+}
 
 const handleFormatTag = (tag) => {
     return tag.value.replace(/\s+/g, '').toLowerCase()
@@ -135,6 +146,11 @@ const handleSaveMD = async () => {
         try {
             console.log(blog.value.tValues)
             const res = await UPDATE_BLOG(blog.value)
+            updateOrCreate.value = 'update'
+            updateBlogFromResponse(res)
+            if (blog.value.tags.length > 0) {
+                blog.value.tValues = Object.values(blog.value.tags)
+            }
             console.log(res)
             Message.success('blog updated successfully')
         } catch (error) {
@@ -147,7 +163,12 @@ const handleSaveMD = async () => {
         try {
             const res = await CREATE_NEW_BLOG(blog.value)
             console.log(res)
-            blog.value.id = res.id
+            // blog.value = res
+            updateBlogFromResponse(res)
+            if (blog.value.tags.length > 0) {
+                blog.value.tValues = Object.values(blog.value.tags)
+            }
+            updateOrCreate.value = 'Update'
             Message.success('blog saved successfully')
         } catch (error) {
             console.log(error)
@@ -167,7 +188,13 @@ const handlePublish = async (id) => {
     }
     try {
         await handleSaveMD()
+        update_data.id = blog.value.id
         const res = await PUBLISH_BLOG(update_data)
+        updateBlogFromResponse(res)
+        if (blog.value.tags.length > 0) {
+            blog.value.tValues = Object.values(blog.value.tags)
+        }
+        console.log(blog.value)
         console.log(res)
         Message.success('blog published successfully')
     } catch (error) {
