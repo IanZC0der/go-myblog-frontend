@@ -17,3 +17,9 @@
 ## First Page
 
 ![first Page](./resources/imgs/front_page.png)
+
+
+
+## Comment Component
+
+![Comment](./resources/imgs/comment.png)
