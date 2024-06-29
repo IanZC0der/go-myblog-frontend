@@ -168,7 +168,7 @@ const handleSaveMD = async () => {
             if (blog.value.tags.length > 0) {
                 blog.value.tValues = Object.values(blog.value.tags)
             }
-            updateOrCreate.value = 'Update'
+            updateOrCreate.value = 'update'
             Message.success('blog saved successfully')
         } catch (error) {
             console.log(error)

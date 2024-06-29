@@ -10,7 +10,7 @@
         <div class="btns">
 
             <a-popover position="left">
-                <a-button type="text" v-if="blogStore.is_login" :style="{ color: 'var(--color-neutral-10)' }"
+                <a-button type="text" v-if="blogStore.is_login" :style="{ color: 'rgb(var(--green-7))' }"
                     @click="handleUsernameClick">{{
                         blogStore.token.username }}</a-button>
                 <template #content>
